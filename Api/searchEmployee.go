@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"bufio"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func (e *Employee) SearchEmployee() {
+func (e Employee) SearchEmployee() {
 	var query string
 	fmt.Print("\nEnter search query: ")
 	scanner := bufio.NewScanner(os.Stdin)

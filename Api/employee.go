@@ -1,4 +1,4 @@
-package main
+package api
 
 type EmployeeManager interface {
 	AddEmployee()
@@ -27,7 +27,7 @@ type AdminManager interface {
 }
 
 type NonAdminManager interface {
-	ViewMyDetails(id int) Employee
-	UpdateMyDetails(id int, newDetails Employee)
-	SearchEmployee(query string) Employee
+	ViewMyDetails(id int)
+	//UpdateMyDetails(id int, newDetails Employee)
+	//SearchEmployee(query string) Employee
 }

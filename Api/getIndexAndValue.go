@@ -1,4 +1,4 @@
-package main
+package api
 
 func GetVal(id int) (e Employee) {
 	for _, value := range Emplist {

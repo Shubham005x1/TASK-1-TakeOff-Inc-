@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"bufio"
@@ -33,10 +33,12 @@ func Login() {
 		if employee.Email == username && employee.Password == password {
 			CurrentUser = employee
 			fmt.Printf("\nWelcome, %s!\n", CurrentUser.FirstName)
-
-			return
+			//return &employee
+		} else {
+			fmt.Println("\nInvalid username or password. Please try again.")
 		}
 	}
 
-	fmt.Println("\nInvalid username or password. Please try again.")
+	//return &Employee{}
+
 }

@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func (e *Employee) ListSortedEmployees() {
+func (e Employee) ListSortedEmployees() {
 	var field string
 	fmt.Print("\nEnter field to sort by (FirstName/LastName/Email/Role/Salary): ")
 	scanner := bufio.NewScanner(os.Stdin)

@@ -1,6 +1,7 @@
 package main
 
 import (
+	api "Employee_Management_CLI/Api"
 	"bufio"
 	"fmt"
 	"os"
@@ -8,17 +9,18 @@ import (
 	"strings"
 )
 
-var CountEmp int = 1
-
 func main() {
-	InsertData()
-	if CurrentUser.ID == 0 {
-		Login()
-	}
-	switch CurrentUser.Role {
-	case "admin":
-		adminMenu()
-	case "manager", "developer", "tester":
+	api.InsertData()
+	for {
+		if api.CurrentUser.ID == 0 {
+			api.Login()
+		}
+		switch api.CurrentUser.Role {
+		case "admin":
+			adminMenu()
+		case "manager", "developer", "tester":
+			NonadminMenu()
+		}
 	}
 }
 
@@ -44,13 +46,13 @@ func adminMenu() {
 
 		switch choice {
 		case 1:
-			CurrentUser.AddEmployee()
+			api.CurrentUser.AddEmployee()
 		case 2:
 			{
 				var num int
 				fmt.Println("Give the Id of the employee you want to View")
 				fmt.Scan(&num)
-				CurrentUser.ViewEmployeeDetails(num)
+				api.CurrentUser.ViewEmployeeDetails(num)
 			}
 		case 3:
 			{
@@ -58,25 +60,26 @@ func adminMenu() {
 				fmt.Println("Give the Id of the employee")
 				val, _ := reader.ReadString('\n')
 				num, _ := strconv.ParseInt(strings.TrimSpace(val), 36, 64)
-				CurrentUser.UpdateEmployeeDetails(int(num))
+				api.CurrentUser.UpdateEmployeeDetails(int(num))
 			}
 		case 4:
 			{
 				var num int
 				fmt.Println("Give the Id of the employee you want to delete")
 				fmt.Scan(&num)
-				CurrentUser.DeleteEmployee(num)
+				api.CurrentUser.DeleteEmployee(num)
 			}
 		case 5:
-			CurrentUser.ListAllEmployees()
+			api.CurrentUser.ListAllEmployees()
 		case 6:
-			CurrentUser.ListSortedEmployees()
+			api.CurrentUser.ListSortedEmployees()
 		case 7:
-			CurrentUser.ListEmployeesWithUpcomingBirthday()
+			api.CurrentUser.ListEmployeesWithUpcomingBirthday()
 		case 8:
-			CurrentUser.SearchEmployee()
+			api.CurrentUser.SearchEmployee()
 		case 9:
-			CurrentUser = Employee{}
+			api.CurrentUser = api.Employee{}
+			api.Login()
 			return
 		default:
 			fmt.Println("Please Enter Valid Value")
@@ -84,4 +87,31 @@ func adminMenu() {
 		}
 	}
 
+}
+func NonadminMenu() {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("\nNonAdmin Menu")
+	fmt.Println("1.View Employee Details")
+	fmt.Println("2.Update Your Details")
+	fmt.Println("3.Search Employee")
+	fmt.Println("4.Logout")
+	val, _ := reader.ReadString('\n')
+	choice, _ := strconv.ParseInt(strings.TrimSpace(val), 36, 64)
+
+	switch choice {
+
+	case 1:
+		var num int
+		fmt.Println("Give the Id of the employee you want to delete")
+		fmt.Scan(&num)
+		api.CurrentUser.ViewMyDetails(num)
+
+	case 2:
+
+	case 3:
+	case 4:
+		api.CurrentUser = api.Employee{}
+		api.Login()
+		return
+	}
 }

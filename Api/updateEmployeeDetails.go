@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func (e *Employee) UpdateEmployeeDetails(id int) {
+func (e Employee) UpdateEmployeeDetails(id int) {
 
 	var emp Employee
 	in := GetIndex(id)
