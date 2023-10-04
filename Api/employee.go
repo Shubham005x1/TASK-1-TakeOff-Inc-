@@ -1,6 +1,8 @@
 package api
 
-type EmployeeManager interface {
+import "time"
+
+type Admin interface {
 	AddEmployee()
 	ViewEmployeeDetails(id int)
 	UpdateEmployeeDetails(id int)
@@ -8,7 +10,7 @@ type EmployeeManager interface {
 	ListAllEmployees()
 	ListSortedEmployees()
 	ListEmployeesWithUpcomingBirthday()
-	SearchEmployee()
+	SearchEmployee(id int)
 }
 type Employee struct {
 	ID        int
@@ -19,15 +21,10 @@ type Employee struct {
 	PhoneNo   string
 	Role      string
 	Salary    float64
+	Birthday  time.Time
 }
-
-type AdminManager interface {
-	EmployeeManager
-	ListEmployeesSortedByField(string)
-}
-
-type NonAdminManager interface {
+type NonAdmins interface {
 	ViewMyDetails(id int)
-	//UpdateMyDetails(id int, newDetails Employee)
-	//SearchEmployee(query string) Employee
+	UpdateMyDetails(id int)
+	SearchEmployee(id int)
 }

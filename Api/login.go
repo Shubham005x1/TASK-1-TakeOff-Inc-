@@ -15,6 +15,13 @@ func InsertData() {
 		LastName:  "Yadav",
 		Email:     "123", Password: "123", PhoneNo: "901535548351", Role: "admin",
 		Salary: 454.05})
+	Emplist = append(Emplist, Employee{ID: 2, FirstName: "Tejas",
+		LastName: "Patil",
+		Email:    "tejas@.",
+		Password: "123",
+		PhoneNo:  "9689081634",
+		Role:     "manager",
+		Salary:   9999.99})
 }
 
 func Login() {
@@ -33,12 +40,11 @@ func Login() {
 		if employee.Email == username && employee.Password == password {
 			CurrentUser = employee
 			fmt.Printf("\nWelcome, %s!\n", CurrentUser.FirstName)
-			//return &employee
-		} else {
-			fmt.Println("\nInvalid username or password. Please try again.")
-		}
-	}
+			return
 
-	//return &Employee{}
+		}
+
+	}
+	fmt.Println("\nInvalid username or password. Please try again.")
 
 }

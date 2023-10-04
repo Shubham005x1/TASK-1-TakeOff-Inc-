@@ -8,7 +8,7 @@ import (
 
 func (e Employee) ListSortedEmployees() {
 	var field string
-	fmt.Print("\nEnter field to sort by (FirstName/LastName/Email/Role/Salary): ")
+	fmt.Print("\nEnter field to sort by (ID/FirstName/LastName/Email/Role/Salary): ")
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	field = scanner.Text()
@@ -16,6 +16,10 @@ func (e Employee) ListSortedEmployees() {
 	var lessFunc func(i, j int) bool
 
 	switch field {
+	case "ID":
+		lessFunc = func(i, j int) bool {
+			return Emplist[i].ID < Emplist[j].ID
+		}
 	case "FirstName":
 		lessFunc = func(i, j int) bool {
 			return Emplist[i].FirstName < Emplist[j].FirstName
@@ -50,6 +54,10 @@ func (e Employee) ListSortedEmployees() {
 			}
 		}
 	}
-	fmt.Println(Emplist)
+	for _, value := range Emplist {
+
+		fmt.Printf("[Id=%d, Name=%s, LastName=%s, Email=%s, Birthday=%s, PhoneNo=%s, Role=%v, Salary=%v] \n ", value.ID, value.FirstName,
+			value.LastName, value.Email, value.Birthday.Format("01-01-2006"), value.PhoneNo, value.Role, value.Salary)
+	}
 
 }
