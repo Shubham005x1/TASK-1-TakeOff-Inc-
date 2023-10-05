@@ -67,6 +67,8 @@ func (e Employee) UpdateEmployeeDetails(id int) {
 		scanner.Scan()
 		emp.PhoneNo = scanner.Text()
 	}
+	emp.Birthday = CurrentUser.Birthday
+
 	{
 	Role:
 		fmt.Print("Enter new role(manager/developer/tester/admin): ")

@@ -11,19 +11,15 @@ import (
 	"time"
 )
 
-// func generateId() int {
-// 	var randomNumber int
-// 	rand.Seed(time.Now().UnixNano())
-// 	randomNumber = rand.Intn(50)
-// 	return randomNumber
+var CountEmp int = 1
 
-// }
-var CountEmp int = len(Emplist)
-
+// AddEmployee allows an admin to add a new employee.
 func (e Employee) AddEmployee() {
+	
 	var employee Employee
 	scanner := bufio.NewScanner(os.Stdin)
-	CountEmp = CountEmp + 1
+	// Increment the employee count for assigning a unique ID
+	CountEmp++
 	employee.ID = CountEmp
 
 	{
@@ -31,7 +27,7 @@ func (e Employee) AddEmployee() {
 		fmt.Print("Enter first name: ")
 		scanner.Scan()
 		name := scanner.Text()
-		err := validations.IsValidEntry(name)
+		err := validations.IsValidEntry(name) // Validation for First Name
 		if err != nil {
 			fmt.Println(err)
 			goto Name
@@ -45,7 +41,7 @@ func (e Employee) AddEmployee() {
 		fmt.Print("Enter last name: ")
 		scanner.Scan()
 		name := scanner.Text()
-		err := validations.IsValidEntry(name)
+		err := validations.IsValidEntry(name) // Validation for Last Name
 		if err != nil {
 			fmt.Println(err)
 			goto LastName
@@ -61,28 +57,13 @@ func (e Employee) AddEmployee() {
 		fmt.Print("Enter email: ")
 		scanner.Scan()
 		var str string = scanner.Text()
-		err := validations.IsValidEmail(str)
+		err := validations.IsValidEmail(str) // Validation for Email
 		if err != nil {
 			fmt.Println(err)
 			goto Email
 		} else {
 			employee.Email = str
 		}
-	}
-	{
-	Birthday:
-		fmt.Print("Enter Birthday (YYYY-MM-DD): ")
-		scanner.Scan()
-		birthdayInput := scanner.Text()
-		birthday, err := time.Parse("2006-01-02", birthdayInput)
-		if err != nil {
-			err := errors.New("=>Please enter valid value for the Birthday")
-			fmt.Println(err)
-			goto Birthday
-		} else {
-			employee.Birthday = birthday
-		}
-
 	}
 	{
 	Password:
@@ -98,13 +79,36 @@ func (e Employee) AddEmployee() {
 		}
 
 	}
+	{
+	Birthday:
+		fmt.Print("Enter Birthday (YYYY-MM-DD): ")
+		scanner.Scan()
+		birthdayInput := scanner.Text()
+		birthday, err := time.Parse("2006-01-02", birthdayInput)
+		if err != nil {
+			err := errors.New("=>Please enter valid value for the Birthday")
+			fmt.Println(err)
+			goto Birthday
+		} else {
+			currentdate := time.Now()
+			if birthday.After(currentdate) {
+				err := errors.New("=>Please enter a birthday that is not in the future")
+				fmt.Println(err)
+				goto Birthday
+			} else {
+				employee.Birthday = birthday
+			}
+
+		}
+
+	}
 
 	{
 	Number:
 		fmt.Print("Enter Phone Number: ")
 		scanner.Scan()
 		val := scanner.Text()
-		err := validations.IsNumberValid(val)
+		err := validations.IsNumberValid(val) // Validation for Number
 		if err != nil {
 			fmt.Println(err)
 			goto Number
@@ -118,7 +122,7 @@ func (e Employee) AddEmployee() {
 		fmt.Print("Enter Role(manager/developer/tester/admin): ")
 		scanner.Scan()
 		role := scanner.Text()
-		err := validations.IsValidRole(role)
+		err := validations.IsValidRole(role) // Validation for Role
 		if err != nil {
 			fmt.Println(err)
 			goto Role
@@ -134,7 +138,7 @@ func (e Employee) AddEmployee() {
 		scanner.Scan()
 		sal := scanner.Text()
 		fl, _ := strconv.ParseFloat(sal, 64)
-		err := validations.IsValidSalary(fl)
+		err := validations.IsValidSalary(fl) // Validation for Salary
 		if err != nil {
 			fmt.Println(err)
 			goto Salary
@@ -143,7 +147,7 @@ func (e Employee) AddEmployee() {
 		}
 
 	}
-
+	// Append the new employee to the list
 	Emplist = append(Emplist, employee)
 	fmt.Println("Employee added successfully!")
 	for _, value := range Emplist {

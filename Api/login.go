@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"time"
 )
 
 var Emplist []Employee
@@ -13,15 +14,9 @@ func InsertData() {
 	Emplist = append(Emplist, Employee{ID: 1,
 		FirstName: "Shubham",
 		LastName:  "Yadav",
-		Email:     "123", Password: "123", PhoneNo: "901535548351", Role: "admin",
+		Email:     "123", Password: "123", Birthday: time.Date(1998, time.January, 11, 0, 0, 0, 0, time.UTC), PhoneNo: "901535548351", Role: "admin",
 		Salary: 454.05})
-	Emplist = append(Emplist, Employee{ID: 2, FirstName: "Tejas",
-		LastName: "Patil",
-		Email:    "tejas@.",
-		Password: "123",
-		PhoneNo:  "9689081634",
-		Role:     "manager",
-		Salary:   9999.99})
+
 }
 
 func Login() {

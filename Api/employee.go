@@ -2,6 +2,7 @@ package api
 
 import "time"
 
+// Admin interface defines the methods that an admin can perform.
 type Admin interface {
 	AddEmployee()
 	ViewEmployeeDetails(id int)
@@ -23,7 +24,9 @@ type Employee struct {
 	Salary    float64
 	Birthday  time.Time
 }
-type NonAdmins interface {
+
+// NonAdmin interface defines the methods that a non-admin can perform.
+type NonAdmin interface {
 	ViewMyDetails(id int)
 	UpdateMyDetails(id int)
 	SearchEmployee(id int)

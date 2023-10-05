@@ -1,5 +1,6 @@
 package api
 
+//Helper Functions
 func GetVal(id int) (e Employee) {
 	for _, value := range Emplist {
 		if value.ID == id {
